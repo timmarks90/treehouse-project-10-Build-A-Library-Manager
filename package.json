@@ -1,0 +1,27 @@
+{
+  "name": "treehouse-project-10-build-a-library-manager",
+  "version": "1.0.0",
+  "description": "Implement a dynamic website using JavaScript, Node.js, Express, Pug, and the SQL ORM Sequelize.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timmarks90/treehouse-project-10-Build-A-Library-Manager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/timmarks90/treehouse-project-10-Build-A-Library-Manager/issues"
+  },
+  "homepage": "https://github.com/timmarks90/treehouse-project-10-Build-A-Library-Manager#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "pug": "^2.0.3",
+    "sequelize": "^5.2.13",
+    "sequelize-cli": "^5.4.0",
+    "sqlite3": "^4.0.6"
+  }
+}
