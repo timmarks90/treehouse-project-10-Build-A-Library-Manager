@@ -19,6 +19,7 @@
   "homepage": "https://github.com/timmarks90/treehouse-project-10-Build-A-Library-Manager#readme",
   "dependencies": {
     "express": "^4.16.4",
+    "nodemon": "^1.19.0",
     "pug": "^2.0.3",
     "sequelize": "^5.2.13",
     "sequelize-cli": "^5.4.0",

@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: "Must have a value"
         }
       }
-    }
+    },
     author: {
       type: DataTypes.STRING,
       validate: {
@@ -16,12 +16,12 @@ module.exports = (sequelize, DataTypes) => {
           msg: "Must have a value"
         }
       }
-    }
+    },
     genre: DataTypes.STRING,
     year: DataTypes.INTEGER
   }, {});
   Book.associate = function(models) {
-    // associations can be defined here
+    // associations
   };
   return Book;
 };
