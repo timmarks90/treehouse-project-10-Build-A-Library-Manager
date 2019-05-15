@@ -1,6 +1,10 @@
 const express = require('express');
-const app = express();
 const sequelize = require("./models").sequelize;
+const bodyParser = require('body-parser');
+
+const app = express();
+
+app.use(bodyParser.json());
 
 // Use a static route and the express.static method to serve the static files located in the public folder
 app.use("/static", express.static("public"));
@@ -14,17 +18,17 @@ const booksRoute = require('./routes/books');
 app.use(mainRoutes);
 app.use(booksRoute);
 
-// Error handler
-app.use((err, req, res, next) => {
-  res.status(err.status);
-  res.render('page-not-found', { err });
-});
-
 // 404 error page
 app.use((req, res, next) => {
   const err = new Error('Page Not Found');
   err.status = 404;
   next(err); 
+});
+
+// Error handler
+app.use((err, req, res, next) => {
+  res.status(err.status);
+  res.render('page-not-found', { err });
 });
 
 // Launch server on localhost:3000
