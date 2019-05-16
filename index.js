@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Use a static route and the express.static method to serve the static files located in the public folder
 app.use("/static", express.static("public"));

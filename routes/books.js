@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const sequelize = require('sequelize');
+
 const Book = require('../models').Book;
 
 // Render books listing
-router.get('/books', (req, res, next) => {
+router.get('/books', (req, res) => {
     Book.findAll()
     .then(books => {
         res.render('index', { books })
@@ -22,7 +24,10 @@ router.get('/books/new', (req, res) => {
 // POST new book to db
 router.post('/books/new', (req, res, next) => {
     Book.create(req.body)
-    .then(book => res.redirect('/' + book.id))
+    .then(book => {
+        console.log(book)
+        res.redirect(`/books/${book.id}`)
+    })
     .catch(err => {
         if(err.name === "SequelizeValidationError") {
             res.render('books/new-book', {
@@ -39,7 +44,7 @@ router.post('/books/new', (req, res, next) => {
 });
 
 // Book Detail Page
-router.get('/book/:id', (req, res, next) => {
+router.get('/books/:id', (req, res, next) => {
     Book.findByPk(req.params.id)
     .then(book => {
         res.render('books/:id', { book });
@@ -49,13 +54,27 @@ router.get('/book/:id', (req, res, next) => {
     });
 });
 
-// Get Books
+// Update books
 router.get('/:id', (req, res, next) => {
     Book.findByPk(req.params.id).then(book => {
-        res.render('new-book', {
-            book: book
-        });
+        console.log(book);
     })
 });
+
+// Delete book
+router.get('/:id/delete', (req, res, next) => {
+    Book.findByPk(req.params.id)
+    .then((book) => {
+        res.render('books/delete', { article })
+    })
+})
+
+// Delete individual book
+router.delete("/books/:id/delete", (req, res) => {
+    Book.findByPk(req.params.id)
+      .then(book => book.destroy())
+      .then(() => res.redirect("/books"))
+      .catch(err => res.render("error", { err }));
+  });
 
 module.exports = router;
