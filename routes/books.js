@@ -6,7 +6,9 @@ const Book = require('../models').Book;
 
 // Render books listing
 router.get('/books', (req, res) => {
-    Book.findAll()
+    Book.findAll({
+        order: [['createdAt', 'DESC']]
+    })
     .then(books => {
         res.render('index', { books })
     })
@@ -16,8 +18,7 @@ router.get('/books', (req, res) => {
 // Render New Books Route
 router.get('/books/new', (req, res) => {
     res.render('new-book', {
-        book: Book.build(), 
-        title: 'New Book'
+        book: Book.build()
     });
 });
 
@@ -25,8 +26,7 @@ router.get('/books/new', (req, res) => {
 router.post('/books/new', (req, res, next) => {
     Book.create(req.body)
     .then(book => {
-        console.log(book)
-        res.redirect(`/books/${book.id}`)
+        res.redirect(`/`)
     })
     .catch(err => {
         if(err.name === "SequelizeValidationError") {
@@ -47,7 +47,7 @@ router.post('/books/new', (req, res, next) => {
 router.get('/books/:id', (req, res, next) => {
     Book.findByPk(req.params.id)
     .then(book => {
-        res.render('books/:id', { book });
+        res.render('update-book', { book });
     })
     .catch(err => {
         res.render('error', { err });
