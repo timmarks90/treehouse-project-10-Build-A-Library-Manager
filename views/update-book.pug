@@ -2,29 +2,29 @@ extends layout
 
 block content
   h1 Update Book
-  form(action='/books/new', method='POST')
-  if errors
-    h2.error Looks like something went wrong!
-    ul.error
-      each err in errors
-        li= err.message
+  form(action=`/books/${book.id}`, method='POST')
+    if errors
+      h2.error Something went wrong in updating your book.
+      ul.error
+        each err in errors
+          li= err.message
 
-  p
-    label(for="title") Title 
-    input(name="title" type="text" id="title" value=book.title)
-  p
-    label(for="author") Author 
-    input(name="author" type="text" id="author" value=book.author)
-  p
-    label(for="genre") Genre 
-    input(name="genre" type="text" id="genre" value=book.genre)
-  p
-    label(for="year") Year 
-    input(name="year" type="text" id="year" value=book.year)
-  p
-    input(type="submit" value="Create New Book")
-  p
-    input(type="submit" value="Delete Book")
+    p
+      label(for="title") Title 
+      input(name="title" type="text" id="title" value=book.title)
+    p
+      label(for="author") Author 
+      input(name="author" type="text" id="author" value=book.author)
+    p
+      label(for="genre") Genre 
+      input(name="genre" type="text" id="genre" value=book.genre)
+    p
+      label(for="year") Year 
+      input(name="year" type="text" id="year" value=book.year)
+    p
+      input(type="submit" value="Update Book")
   p
     a.button(href="/") Cancel
-  
+  form(action=`/books/${book.id}/delete`, method='POST')
+    p
+      input(type="submit" value="Delete Book")
