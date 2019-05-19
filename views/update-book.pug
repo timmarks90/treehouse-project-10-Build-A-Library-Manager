@@ -7,8 +7,7 @@ block content
       h2.error Something went wrong in updating your book.
       ul.error
         each err in errors
-          li= err.message
-
+          li= `${err.path.charAt(0).toUpperCase()}${err.path.substring(1)} ${err.message}`
     p
       label(for="title") Title 
       input(name="title" type="text" id="title" value=book.title)
@@ -23,8 +22,8 @@ block content
       input(name="year" type="text" id="year" value=book.year)
     p
       input(type="submit" value="Update Book")
-  p
-    a.button(href="/") Cancel
   form(action=`/books/${book.id}/delete`, method='POST')
     p
       input(type="submit" value="Delete Book")
+    p
+      a.button(href="/") Cancel

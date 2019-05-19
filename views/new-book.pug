@@ -3,12 +3,12 @@ extends layout
 block content
   h1 New Book
   form(action='/books/new', method='POST')
+    //- Display errors if present on form submit
     if errors
-      h2.error Looks like something went wrong!
+      h2.error Whoops! Something went wrong.
       ul.error
         each err in errors
-          li= err.message
-
+          li= `${err.path.charAt(0).toUpperCase()}${err.path.substring(1)} ${err.message}`
     p
       label(for="title") Title 
       input(name="title" type="text" id="title")
