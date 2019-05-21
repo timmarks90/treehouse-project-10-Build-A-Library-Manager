@@ -15,6 +15,54 @@ router.get('/books', (req, res) => {
     .catch(err => res.render("error", { err }));
 });
 
+// Search books route
+router.get('/books/search', (req, res) => {
+    res.redirect('/');
+});
+// Update book listing off search results
+router.post('/books/search', (req, res) => {
+    const Op = sequelize.Op;
+    const searchText = req.body;
+    // Refresh page if empty search
+    if(searchText.search === '') {
+        res.redirect('/');
+    }
+    else {
+        // Search case insensitive and be good for partial matches for strings.
+        const searchResults = {
+            where: {
+                [Op.or]: [
+                    {
+                        title: {
+                        [Op.like]: `%${searchText.search}%`
+                        }
+                    },
+                    {
+                        author: {
+                        [Op.like]: `%${searchText.search}%`
+                        }
+                    },
+                    {
+                        genre: {
+                            [Op.like]: `%${searchText.search}%`
+                        }
+                    },
+                    {
+                        year: {
+                            [Op.like]: `%${searchText.search}%`
+                        }
+                    }
+                ]
+            }
+        }
+        Book.findAll(searchResults)
+        .then(books => {
+            res.render('index', { books })
+        })
+        .catch(err => res.render("error", { err }));   
+    }
+})
+
 // Render New Books Route
 router.get('/books/new', (req, res) => {
     res.render('new-book', {
