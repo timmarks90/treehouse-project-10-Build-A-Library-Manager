@@ -1,7 +1,7 @@
 extends layout.pug
 
 block content
-  h1 Books
+  h1= `${numberOfBooks} Books In Library`
   p
     a.button(href='/books/new') Create New Book
   p
@@ -24,3 +24,6 @@ block content
             td= book.author
             td= book.genre
             td= book.year
+    p
+      each button in pageButtons
+        a.button(href=`?offset=${button}` style='margin-right: 10px;')= button

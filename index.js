@@ -26,7 +26,7 @@ app.use((req, res, next) => {
   next(err); 
 });
 
-// Error handler
+// 404 page styling
 app.use((err, req, res, next) => {
   res.status(err.status);
   res.render('page-not-found', { err });
