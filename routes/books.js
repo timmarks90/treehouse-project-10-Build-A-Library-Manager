@@ -41,7 +41,7 @@ router.get('/books', (req, res) => {
         Book.findAll({
             limit: limit,
             offset: offset,
-            order: [['updatedAt', 'DESC']]
+            order: [['createdAt', 'DESC']]
         })
         .then(books => {
             res.render('index', { books, pageButtons, numberOfBooks }) // Render books and buttons to pug pages
